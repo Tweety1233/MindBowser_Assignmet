@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.mindbowser.assignmet.R;
 import com.mindbowser.assignmet.model.Contacts;
+import com.mindbowser.assignmet.ui.Constants;
 
 public class ContactHolder extends RecyclerView.ViewHolder {
     private TextView contactName;
@@ -29,7 +30,7 @@ public class ContactHolder extends RecyclerView.ViewHolder {
         contactName = itemView.findViewById(R.id.contactName);
         contactNumber = itemView.findViewById(R.id.contactNumber);
         contactIme = itemView.findViewById(R.id.contactImg);
-//        contactImgTxt = itemView.findViewById(R.id.contactImgTxt);
+        contactImgTxt = itemView.findViewById(R.id.contactImgTxt);
         fav = itemView.findViewById(R.id.favourite);
         delete = itemView.findViewById(R.id.delete);
 
@@ -42,22 +43,27 @@ public class ContactHolder extends RecyclerView.ViewHolder {
         contactHolder = contacts;
         contactName.setText(contacts.getName());
         contactNumber.setText(contacts.getNumber());
-        if (contacts.getUrl() == null) {
-//            contactImgTxt.setVisibility(View.VISIBLE);
-//            contactImgTxt.setText(contacts.getName().charAt(0));
-//            contactIme.setVisibility(View.GONE);
-        } else {
-//            contactImgTxt.setVisibility(View.GONE);
-            Glide.with(context).load(contacts.getUrl()).error(R.color.purple_200).into(contactIme);
-        }
-        delete.setOnClickListener(view -> adapterListener.deleteOnClick(view, contacts));
-        fav.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                adapterListener.favOnClick(view, contacts);
 
+        if (contacts.getDelete().equalsIgnoreCase("no")) {
+            if (contacts.getFavourite().equalsIgnoreCase("yes")) {
+                fav.setText(context.getResources().getString(R.string.remove));
+            } else if (contacts.getFavourite().equalsIgnoreCase("no")) {
+                fav.setText(context.getResources().getString(R.string.fav));
             }
-        });
+            if (contacts.getUrl() == null) {
+                Constants.log("contactholder", String.valueOf(contactName.getText().charAt(0)));
+                contactImgTxt.setVisibility(View.VISIBLE);
+                contactImgTxt.setText( String.valueOf(contactName.getText().charAt(0)));
+                contactIme.setVisibility(View.GONE);
+            } else {
+                contactImgTxt.setVisibility(View.GONE);
+                contactIme.setVisibility(View.VISIBLE);
+                Glide.with(context).load(contacts.getUrl()).error(R.color.purple_200).into(contactIme);
+            }
+
+            delete.setOnClickListener(view -> adapterListener.deleteOnClick(view, contacts));
+            fav.setOnClickListener(view -> adapterListener.favOnClick(view, contacts));
+        }
     }
 
     public interface ContactAdapterListener {

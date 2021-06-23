@@ -2,6 +2,7 @@ package com.mindbowser.assignmet.repository;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
@@ -24,6 +25,12 @@ public interface ContactDao {
     @Query("SELECT * from contact_table where favourite=:fav")
     LiveData<List<Contacts>> getFavContact(String fav);
 
+    @Query("SELECT * from contact_table where `delete`=:del")
+    LiveData<List<Contacts>> getDeleteContact(String del);
+
     @Update
     void updateFav(Contacts contacts);
+
+    @Update
+    void deleteContact(Contacts contacts);
 }

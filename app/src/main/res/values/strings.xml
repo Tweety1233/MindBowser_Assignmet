@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">MindBowser_Assignmet</string>
+    <string name="favourite_contacts">Favourite Contacts</string>
+    <string name="profileimage">profileImage</string>
+    <string name="fav">Fav</string>
+    <string name="del">Del</string>
+    <string name="remove">Remove</string>
 </resources>

@@ -13,12 +13,14 @@ public class ContactRepsitory {
     private ContactDao contactDao;
     private LiveData<List<Contacts>> contactLiveData;
     private LiveData<List<Contacts>> contactFavLiveData;
+    private LiveData<List<Contacts>> contactDeleteLiveData;
 
     public ContactRepsitory(Application application) {
         ContactDatabase db = ContactDatabase.getDatabase(application);
         contactDao = db.contactDao();
         contactLiveData = contactDao.getAllContact();
         contactFavLiveData = contactDao.getFavContact("yes");
+        contactDeleteLiveData = contactDao.getDeleteContact("yes");
         Constants.log("contactRepository", "" + contactDao.getAllContact());
 
     }
@@ -49,6 +51,15 @@ public class ContactRepsitory {
 
     public LiveData<List<Contacts>> getFavContacts() {
         return contactFavLiveData;
+    }
+
+    public LiveData<List<Contacts>> getDeleteContacts() {
+        return contactDeleteLiveData;
+    }
+
+    public void deleteContact(Contacts contacts) {
+        ContactDatabase.databaseWriteExecutor.execute(() ->
+                contactDao.deleteContact(contacts));
     }
 }
 

@@ -1,17 +1,40 @@
 package com.mindbowser.assignmet.model;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "contact_table")
 public class Contacts {
+    @ColumnInfo(name = "name")
     private String name;
+
+    @ColumnInfo(name = "number")
     private String number;
+
+    @ColumnInfo(name = "url")
     private String url;
+
+    @ColumnInfo(name = "favourite")
     private String favourite;
+
+    @ColumnInfo(name = "delete")
     private String delete;
-    @PrimaryKey( autoGenerate = true)
+
+    @ColumnInfo(name = "id")
+    @PrimaryKey(autoGenerate = true)
     private int id;
+
+    @ColumnInfo(name = "contact_id")
+    private String contact_id;
+
+    public String getContact_id() {
+        return contact_id;
+    }
+
+    public void setContact_id(String contact_id) {
+        this.contact_id = contact_id;
+    }
 
     public int getId() {
         return id;

@@ -16,33 +16,48 @@ public class ContactViewModel extends AndroidViewModel {
     ContactRepsitory repository;
     private LiveData<List<Contacts>> contacts;
     private LiveData<List<Contacts>> favcontacts;
+    private LiveData<List<Contacts>> deletecontact;
+    private LiveData<List<Contacts>> updatecontacts;
 
     public ContactViewModel(@NonNull Application application) {
         super(application);
         repository = new ContactRepsitory(application);
         contacts = repository.getContacts();
-        favcontacts=repository.getFavContacts();
+        favcontacts = repository.getFavContacts();
+        deletecontact = repository.getDeleteContacts();
     }
 
     public LiveData<List<Contacts>> getContacts() {
         return contacts;
     }
+
+    public LiveData<List<Contacts>> getUpdateContact() {
+        return updatecontacts;
+    }
+
     public LiveData<List<Contacts>> getFavContacts() {
         return favcontacts;
     }
 
     public void insert(Contacts contacts) {
         Constants.log("contactVm", "" + contacts.getName());
-
         repository.insert(contacts);
     }
 
     public void delete() {
-
         repository.delete();
     }
 
     public void upadteFav(Contacts contacts) {
-    repository.updateFav(contacts);}
+        repository.updateFav(contacts);
+    }
+
+    public LiveData<List<Contacts>> getDeleteContacts() {
+        return deletecontact;
+    }
+
+    public void deleteContact(Contacts contacts) {
+        repository.deleteContact(contacts);
+    }
 
 }
