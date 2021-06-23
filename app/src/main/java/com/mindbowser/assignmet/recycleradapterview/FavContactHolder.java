@@ -11,8 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.mindbowser.assignmet.R;
 import com.mindbowser.assignmet.model.Contacts;
+import com.mindbowser.assignmet.ui.Constants;
 
 public class FavContactHolder extends RecyclerView.ViewHolder {
+    private final TextView contactImgTxt;
     private TextView contactName;
     private ImageView contactIme;
     private TextView contactNumber;
@@ -27,7 +29,7 @@ public class FavContactHolder extends RecyclerView.ViewHolder {
         contactName = itemView.findViewById(R.id.contactName);
         contactNumber = itemView.findViewById(R.id.contactNumber);
         contactIme = itemView.findViewById(R.id.contactImg);
-//        contactImgTxt = itemView.findViewById(R.id.contactImgTxt);
+        contactImgTxt = itemView.findViewById(R.id.contactImgTxt);
         fav = itemView.findViewById(R.id.favourite);
         delete = itemView.findViewById(R.id.delete);
     }
@@ -39,13 +41,16 @@ public class FavContactHolder extends RecyclerView.ViewHolder {
         contactName.setText(contacts.getName());
         contactNumber.setText(contacts.getNumber());
         if (contacts.getUrl() == null) {
-//            contactImgTxt.setVisibility(View.VISIBLE);
-//            contactImgTxt.setText(contacts.getName().charAt(0));
-//            contactIme.setVisibility(View.GONE);
+            Constants.log("contactholder", String.valueOf(contactName.getText().charAt(0)));
+            contactImgTxt.setVisibility(View.VISIBLE);
+            contactImgTxt.setText( String.valueOf(contactName.getText().charAt(0)));
+            contactIme.setVisibility(View.GONE);
         } else {
-//            contactImgTxt.setVisibility(View.GONE);
+            contactImgTxt.setVisibility(View.GONE);
+            contactIme.setVisibility(View.VISIBLE);
             Glide.with(context).load(contacts.getUrl()).error(R.color.purple_200).into(contactIme);
         }
+
     }
 
 }

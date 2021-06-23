@@ -61,10 +61,6 @@ public class ContactScreen extends Fragment implements ContactHolder.ContactAdap
         return view;
     }
 
-    private void getUpdateContactsFromDevice() {
-        getObserverModel();
-    }
-
     private void getObserverModel() {
 
         contactViewModel.getContacts().observe(getActivity(), contacts -> {
