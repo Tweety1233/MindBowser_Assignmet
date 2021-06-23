@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.mindbowser.assignmet.R;
 import com.mindbowser.assignmet.databinding.ContactScreenBinding;
 import com.mindbowser.assignmet.model.Contacts;
+import com.mindbowser.assignmet.model.DeleteContact;
 import com.mindbowser.assignmet.recycleradapterview.ContactHolder;
 import com.mindbowser.assignmet.recycleradapterview.ContactRecylcerViewAdapter;
 import com.mindbowser.assignmet.repository.SharedRepository;
@@ -57,7 +58,9 @@ public class ContactScreen extends Fragment implements ContactHolder.ContactAdap
         if (!repository.getUpdate()) {
             getContactsFromDevice();
         }
+//        getContactsFromDevice();
         getObserverModel();
+
         return view;
     }
 
@@ -73,7 +76,6 @@ public class ContactScreen extends Fragment implements ContactHolder.ContactAdap
 
 
     private void getContactsFromDevice() {
-
         String contactId = "";
         String displayName = "";
         String url = "";
@@ -89,7 +91,7 @@ public class ContactScreen extends Fragment implements ContactHolder.ContactAdap
                     displayName = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
                     url = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.PHOTO_URI));
 
-                    contactsInfo.setContact_id(contactId);
+//                    contactsInfo.setCnt_id(Integer.parseInt(contactId));
                     contactsInfo.setName(displayName);
                     contactsInfo.setUrl(url);
                     contactsInfo.setFavourite("no");
@@ -124,15 +126,23 @@ public class ContactScreen extends Fragment implements ContactHolder.ContactAdap
     }
 
     @Override
-    public void deleteOnClick(View view, Contacts contacts) {
+    public void deleteOnClick(View view, Contacts contacts, int position) {
         Constants.log(tag, "delete" + contacts.getName());
+        Constants.log(tag, "delete pos" + position);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Delete Contact");
-        builder.setMessage("Are you sure you want t delete contact?");
+        builder.setMessage("Are you sure you want to delete contact?");
         builder.setPositiveButton("Yes", (dialogInterface, i) -> {
-            contacts.setDelete("yes");
-            contactViewModel.deleteContact(contacts);
-            getObserverModel();
+            Constants.log(tag, "inside delete");
+            DeleteContact deleteContact = new DeleteContact();
+            deleteContact.setName(contacts.getName());
+            deleteContact.setNumber(contacts.getNumber());
+            deleteContact.setUrl(contacts.getUrl());
+            deleteContact.setContact_id(contacts.getContact_id());
+            deleteContact.setFavourite(contacts.getFavourite());
+            deleteContact.setDelete(contacts.getDelete());
+//            contactViewModel.insertDelete(deleteContact);
+            contactViewModel.deleteContact(contacts,deleteContact);
         });
         builder.setNegativeButton("No", (dialogInterface, i) -> {
 
@@ -152,6 +162,11 @@ public class ContactScreen extends Fragment implements ContactHolder.ContactAdap
             contactViewModel.upadteFav(contacts);
 
         }
+
+    }
+
+    @Override
+    public void onItemListner(View view, Contacts contacts, int position) {
 
     }
 }

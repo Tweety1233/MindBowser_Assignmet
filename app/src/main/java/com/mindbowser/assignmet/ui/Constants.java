@@ -6,7 +6,7 @@ public class Constants {
 
     public static String log(String tag, String msg)
     {
-        return" "+ Log.i("MindBowser",tag+ msg);
+        return" "+ Log.i("MindBowser ",tag +" "+ msg);
     }
 
 }

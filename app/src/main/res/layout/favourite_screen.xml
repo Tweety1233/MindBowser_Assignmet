@@ -15,7 +15,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/_5sdp"
+            android:textStyle="bold"
             android:text="@string/favourite_contacts"
+            android:textSize="@dimen/textsize_20"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

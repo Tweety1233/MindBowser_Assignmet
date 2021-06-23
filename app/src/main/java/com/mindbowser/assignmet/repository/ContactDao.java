@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
@@ -13,7 +14,7 @@ import java.util.List;
 
 @Dao
 public interface ContactDao {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Contacts contacts);
 
     @Query("DELETE from contact_table")
@@ -31,6 +32,7 @@ public interface ContactDao {
     @Update
     void updateFav(Contacts contacts);
 
-    @Update
+    @Delete
     void deleteContact(Contacts contacts);
+
 }

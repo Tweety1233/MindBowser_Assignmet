@@ -35,7 +35,6 @@ public class ContactHolder extends RecyclerView.ViewHolder {
         delete = itemView.findViewById(R.id.delete);
 
         this.adapterListener = adapterListener;
-//        this.listClickListener = listClickListener;
     }
 
     public void bind(Contacts contacts) {
@@ -43,6 +42,7 @@ public class ContactHolder extends RecyclerView.ViewHolder {
         contactHolder = contacts;
         contactName.setText(contacts.getName());
         contactNumber.setText(contacts.getNumber());
+        Constants.log("contactholder", contacts.getDelete());
 
         if (contacts.getDelete().equalsIgnoreCase("no")) {
             if (contacts.getFavourite().equalsIgnoreCase("yes")) {
@@ -53,7 +53,7 @@ public class ContactHolder extends RecyclerView.ViewHolder {
             if (contacts.getUrl() == null) {
                 Constants.log("contactholder", String.valueOf(contactName.getText().charAt(0)));
                 contactImgTxt.setVisibility(View.VISIBLE);
-                contactImgTxt.setText( String.valueOf(contactName.getText().charAt(0)));
+                contactImgTxt.setText(String.valueOf(contactName.getText().charAt(0)));
                 contactIme.setVisibility(View.GONE);
             } else {
                 contactImgTxt.setVisibility(View.GONE);
@@ -61,16 +61,19 @@ public class ContactHolder extends RecyclerView.ViewHolder {
                 Glide.with(context).load(contacts.getUrl()).error(R.color.purple_200).into(contactIme);
             }
 
-            delete.setOnClickListener(view -> adapterListener.deleteOnClick(view, contacts));
+            delete.setOnClickListener(view -> adapterListener.deleteOnClick(view, contacts, getAdapterPosition()));
             fav.setOnClickListener(view -> adapterListener.favOnClick(view, contacts));
+            itemView.setOnClickListener(view -> adapterListener.onItemListner(view, contacts, getAdapterPosition()));
         }
     }
 
     public interface ContactAdapterListener {
 
-        void deleteOnClick(View view, Contacts contacts);
+        void deleteOnClick(View view, Contacts contacts, int position);
 
         void favOnClick(View view, Contacts contacts);
+
+        void onItemListner(View view, Contacts contacts, int position);
     }
 
 }

@@ -4,10 +4,9 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "contact_table")
-public class Contacts {
-    @ColumnInfo(name = "name")
-    private String name;
+@Entity(tableName = "delete_contact")
+public class DeleteContact {  @ColumnInfo(name = "name")
+private String name;
 
     @ColumnInfo(name = "number")
     private String number;
@@ -80,4 +79,5 @@ public class Contacts {
     public void setDelete(String delete) {
         this.delete = delete;
     }
+
 }

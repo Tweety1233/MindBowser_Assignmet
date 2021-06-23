@@ -9,30 +9,32 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mindbowser.assignmet.R;
-import com.mindbowser.assignmet.model.Contacts;
+import com.mindbowser.assignmet.model.DeleteContact;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DeleteRecylcerViewAdapter extends RecyclerView.Adapter<DeleteContactHolder> {
     Context context;
-    private List<Contacts> contacts = new ArrayList<>();
+    private List<DeleteContact> contacts = new ArrayList<>();
+    DeleteContactHolder.RestoreClickListerner adapterListener;
 
-    public DeleteRecylcerViewAdapter(Context context) {
+    public DeleteRecylcerViewAdapter(Context context, DeleteContactHolder.RestoreClickListerner adapterListener) {
         this.context = context;
+        this.adapterListener = adapterListener;
     }
 
     @NonNull
     @Override
     public DeleteContactHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_contacts, parent, false);
-        return new DeleteContactHolder(itemView, context);
+        return new DeleteContactHolder(itemView, context, adapterListener);
 
     }
 
     @Override
     public void onBindViewHolder(@NonNull DeleteContactHolder holder, int position) {
-        Contacts alarm = contacts.get(position);
+        DeleteContact alarm = contacts.get(position);
         holder.bind(alarm);
     }
 
@@ -41,7 +43,7 @@ public class DeleteRecylcerViewAdapter extends RecyclerView.Adapter<DeleteContac
         return contacts.size();
     }
 
-    public void setDeleteContacts(List<Contacts> contacts) {
+    public void setDeleteContacts(List<DeleteContact> contacts) {
         this.contacts = contacts;
         notifyDataSetChanged();
     }

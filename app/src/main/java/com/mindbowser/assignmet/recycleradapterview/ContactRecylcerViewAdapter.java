@@ -15,27 +15,28 @@ import com.mindbowser.assignmet.ui.Constants;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContactRecylcerViewAdapter extends RecyclerView.Adapter<ContactHolder>  {
+public class ContactRecylcerViewAdapter extends RecyclerView.Adapter<ContactHolder> {
     private List<Contacts> contacts = new ArrayList<>();
     Context context;
     ContactHolder.ContactAdapterListener adapterListener;
 
     public ContactRecylcerViewAdapter(Context contactScreen, ContactHolder.ContactAdapterListener adapterListener) {
         this.context = contactScreen;
-        this.adapterListener=adapterListener;
+        this.adapterListener = adapterListener;
     }
 
     @NonNull
     @Override
     public ContactHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_contacts, parent, false);
-        return new ContactHolder(itemView, context,adapterListener);
+        return new ContactHolder(itemView, context, adapterListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ContactHolder holder, int position) {
-        Contacts alarm = contacts.get(position);
-        holder.bind(alarm);
+        Contacts contacts = this.contacts.get(position);
+        Constants.log("recycler-", "" + position);
+        holder.bind(contacts);
     }
 
     @Override
@@ -45,6 +46,7 @@ public class ContactRecylcerViewAdapter extends RecyclerView.Adapter<ContactHold
     }
 
     public void setContacts(List<Contacts> contacts) {
+
         this.contacts = contacts;
         notifyDataSetChanged();
     }
