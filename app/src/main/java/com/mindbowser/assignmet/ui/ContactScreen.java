@@ -1,12 +1,15 @@
 package com.mindbowser.assignmet.ui;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -141,8 +144,7 @@ public class ContactScreen extends Fragment implements ContactHolder.ContactAdap
             deleteContact.setContact_id(contacts.getContact_id());
             deleteContact.setFavourite(contacts.getFavourite());
             deleteContact.setDelete(contacts.getDelete());
-//            contactViewModel.insertDelete(deleteContact);
-            contactViewModel.deleteContact(contacts,deleteContact);
+            contactViewModel.deleteContact(contacts, deleteContact);
         });
         builder.setNegativeButton("No", (dialogInterface, i) -> {
 
@@ -167,6 +169,42 @@ public class ContactScreen extends Fragment implements ContactHolder.ContactAdap
 
     @Override
     public void onItemListner(View view, Contacts contacts, int position) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("SMS Or Call");
+        builder.setMessage("You can call or send msg");
+        builder.setPositiveButton("SMS", (dialogInterface, i) -> {
+            sendSMS(contacts.getName(), contacts.getNumber());
+        });
+        builder.setNegativeButton("Call", (dialogInterface, i) -> {
+            sendCall(contacts.getName(), contacts.getNumber());
 
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+    }
+
+    private void sendCall(String name, String number) {
+        Intent intent = new Intent(Intent.ACTION_CALL);
+
+        intent.setData(Uri.parse("tel:" + number));
+        startActivity(intent);
+    }
+
+    protected void sendSMS(String name, String number) {
+        Constants.log("Send SMS", "");
+        Intent smsIntent = new Intent(Intent.ACTION_VIEW);
+
+        smsIntent.setData(Uri.parse("smsto:"));
+        smsIntent.setType("vnd.android-dir/mms-sms");
+        smsIntent.putExtra("address", number);
+        smsIntent.putExtra("sms_body", "Test ");
+
+        try {
+            startActivity(smsIntent);
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(getActivity(),
+                    "SMS faild, please try again later.", Toast.LENGTH_SHORT).show();
+        }
     }
 }

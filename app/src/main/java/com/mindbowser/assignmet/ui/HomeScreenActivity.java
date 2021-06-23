@@ -81,10 +81,15 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
 
     public void requestContactPermission() {
         if (ActivityCompat.checkSelfPermission(HomeScreenActivity.this,
-                Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
+                Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(HomeScreenActivity.this,
+                        Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(HomeScreenActivity.this,
+                        Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED) {
 
         } else {
-            ActivityCompat.requestPermissions(HomeScreenActivity.this, new String[]{Manifest.permission.READ_CONTACTS},
+            ActivityCompat.requestPermissions(HomeScreenActivity.this, new String[]{Manifest.permission.READ_CONTACTS,
+                            Manifest.permission.SEND_SMS, Manifest.permission.CALL_PHONE},
                     1);
         }
     }
