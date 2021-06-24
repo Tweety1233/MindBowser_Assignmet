@@ -17,16 +17,18 @@ import java.util.List;
 public class FavRecylcerViewAdapter extends RecyclerView.Adapter<FavContactHolder> {
     Context context;
     private List<Contacts> contacts = new ArrayList<>();
+    FavContactHolder.OnItemClickListerner itemClickListerner;
 
-    public FavRecylcerViewAdapter(Context context) {
+    public FavRecylcerViewAdapter(Context context, FavContactHolder.OnItemClickListerner clickListerner) {
         this.context = context;
+        this.itemClickListerner=clickListerner;
     }
 
     @NonNull
     @Override
     public FavContactHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_contacts, parent, false);
-        return new FavContactHolder(itemView, context);
+        return new FavContactHolder(itemView, context,itemClickListerner);
 
     }
 

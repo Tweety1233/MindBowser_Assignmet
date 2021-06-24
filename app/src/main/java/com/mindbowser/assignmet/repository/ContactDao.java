@@ -20,7 +20,7 @@ public interface ContactDao {
     @Query("DELETE from contact_table")
     void deleteAll();
 
-    @Query("SELECT * from contact_table")
+    @Query("SELECT * from contact_table ")
     LiveData<List<Contacts>> getAllContact();
 
     @Query("SELECT * from contact_table where favourite=:fav")
@@ -34,5 +34,4 @@ public interface ContactDao {
 
     @Delete
     void deleteContact(Contacts contacts);
-
 }

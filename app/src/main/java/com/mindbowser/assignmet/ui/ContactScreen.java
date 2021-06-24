@@ -98,7 +98,7 @@ public class ContactScreen extends Fragment implements ContactHolder.ContactAdap
                     contactsInfo.setName(displayName);
                     contactsInfo.setUrl(url);
                     contactsInfo.setFavourite("no");
-                    contactsInfo.setDelete("no");
+                    contactsInfo.setDeleted("no");
 
                     Cursor phoneCursor = getActivity().getContentResolver().query(
                             ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
@@ -143,8 +143,11 @@ public class ContactScreen extends Fragment implements ContactHolder.ContactAdap
             deleteContact.setUrl(contacts.getUrl());
             deleteContact.setContact_id(contacts.getContact_id());
             deleteContact.setFavourite(contacts.getFavourite());
-            deleteContact.setDelete(contacts.getDelete());
+            deleteContact.setDelete(contacts.getDeleted());
             contactViewModel.deleteContact(contacts, deleteContact);
+            contacts.setDeleted("yes");
+            contactViewModel.upadteFav(contacts);
+
         });
         builder.setNegativeButton("No", (dialogInterface, i) -> {
 

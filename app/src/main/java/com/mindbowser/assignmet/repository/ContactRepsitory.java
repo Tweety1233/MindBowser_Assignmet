@@ -77,6 +77,8 @@ public class ContactRepsitory {
     public void deleteAgain(DeleteContact contacts) {
         ContactDatabase.databaseWriteExecutor.execute(() -> deleteDao.delete(contacts));
     }
+
+
 }
 
 

@@ -16,7 +16,7 @@ public class Contacts {
     @ColumnInfo(name = "favourite")
     private String favourite;
     @ColumnInfo(name = "delete")
-    private String delete;
+    private String deleted;
 
     public String getContact_id() {
         return contact_id;
@@ -73,11 +73,11 @@ public class Contacts {
         this.favourite = favourite;
     }
 
-    public String getDelete() {
-        return delete;
+    public String getDeleted() {
+        return deleted;
     }
 
-    public void setDelete(String delete) {
-        this.delete = delete;
+    public void setDeleted(String deleted) {
+        this.deleted = deleted;
     }
 }

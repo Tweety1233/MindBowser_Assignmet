@@ -54,7 +54,7 @@ public class DeleteContactHolder extends RecyclerView.ViewHolder {
             Glide.with(context).load(contacts.getUrl()).error(R.color.purple_200).into(contactIme);
         }
 
-        delete.setOnClickListener(view -> listerner.restoreClick(view, contacts, getAdapterPosition()));
+        fav.setOnClickListener(view -> listerner.restoreClick(view, contacts, getAdapterPosition()));
     }
 
     public interface RestoreClickListerner {

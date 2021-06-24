@@ -42,9 +42,9 @@ public class ContactHolder extends RecyclerView.ViewHolder {
         contactHolder = contacts;
         contactName.setText(contacts.getName());
         contactNumber.setText(contacts.getNumber());
-        Constants.log("contactholder", contacts.getDelete());
+        Constants.log("contactholder", contacts.getDeleted());
 
-        if (contacts.getDelete().equalsIgnoreCase("no")) {
+        if (contacts.getDeleted().equalsIgnoreCase("no")) {
             if (contacts.getFavourite().equalsIgnoreCase("yes")) {
                 fav.setText(context.getResources().getString(R.string.remove));
             } else if (contacts.getFavourite().equalsIgnoreCase("no")) {

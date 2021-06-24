@@ -22,7 +22,6 @@ public class ContactViewModel extends AndroidViewModel {
     public ContactViewModel(@NonNull Application application) {
         super(application);
         repository = new ContactRepsitory(application);
-
         contacts = repository.getContacts();
         favcontacts = repository.getFavContacts();
         deletecontact = repository.getDeleteContacts();
@@ -31,7 +30,6 @@ public class ContactViewModel extends AndroidViewModel {
     public LiveData<List<Contacts>> getContacts() {
         return contacts;
     }
-
 
     public LiveData<List<Contacts>> getFavContacts() {
         return favcontacts;

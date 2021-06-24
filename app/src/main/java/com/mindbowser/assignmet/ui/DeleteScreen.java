@@ -76,7 +76,7 @@ public class DeleteScreen extends Fragment implements DeleteContactHolder.Restor
             contact.setUrl(deleteContact.getUrl());
             contact.setContact_id(deleteContact.getContact_id());
             contact.setFavourite(deleteContact.getFavourite());
-            contact.setDelete(deleteContact.getDelete());
+            contact.setDeleted(deleteContact.getDelete());
             contactViewModel.insertDeleteAgain(deleteContact, contact);
         });
         builder.setNegativeButton("No", (dialogInterface, i) -> {
